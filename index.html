@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible Box Layout -- Container</title>
+    <style>
+        .box {
+            display: flex;
+            height: 95vh; /* 100vh = 100% of the viewport height */
+            flex-direction: row; /* 决定主轴的方向，即容器内部元素的排列方向 */
+            flex-wrap: wrap; /* 决定了容器里面的元素是否换行，如果设置为wrap，则元素会换行 */
+            /* flex-flow: <flex-direction> || <flex-wrap>;; */ /* flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap */
+            justify-content: flex-start; /* 决定了容器内部元素在主轴上的对齐方式，即水平对齐方式 */
+            align-items: flex-start; /* 决定了容器内部元素在交叉轴上的对齐方式，即垂直对齐方式 */
+            align-content: flex-start; /* 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用 */
+            background-color: #eee;
+        }
+        .item {
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+            margin: 10px;
+            color: #fff;
+            font-size: 14px;
+            background-color: #FBAD03;
+            order: 1; /* 决定了元素的排列顺序。数值越小，排列越靠前，默认为0 */
+            flex-grow: 1; /* 决定了元素在主轴方向的扩展长度（即放大比例），默认为0 */
+            flex-shrink: 0; /* 决定了元素在主轴方向的缩小比例（即如果空间不足，该项目将缩小），默认为1 */
+            flex-basis: auto; /* 决定了元素在主轴方向的默认长度，默认为auto */
+            /* flex: 0 1 auto; */ /* flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto, 建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值 */
+            align-self: auto;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function() {
+            var box = document.createElement('div')
+            box.className = 'box'
+            for (var i = 0; i < 10; i++) {
+                var item = document.createElement('span');
+                item.className = 'item';
+                item.innerHTML = i;
+                item.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16)
+                // 可以通过屏蔽item元素的各个属性样式来观察和测试flex布局的效果
+                item.style.order = i + 20;
+                item.style.flexGrow = i + 1;
+                if (i % 2 === 0) {
+                    item.style.flexShrink = 0;
+                } else {
+                    item.style.flexShrink = 1;
+                }
+                if (i === 0) {
+                    item.style.alignSelf = 'flex-end';
+                } else {
+                    item.style.alignSelf = 'auto';
+                }
+                box.appendChild(item);
+            }
+            document.body.appendChild(box);
+        };
+    </script>
+</head>
+<body>
+    <!--
+        动态生成的节点结构示例如下： 
+        <div class="box">
+            <span class="item">1</span>
+        </div> 
+    -->
+</body>
+</html>
